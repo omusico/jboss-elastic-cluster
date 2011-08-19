@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<deployment xmlns="urn:jboss:bean-deployer:2.0">
+
+	<bean name="MonitorService" class="org.jboss.monitoring.MonitorService">
+	
+	<annotation>@org.jboss.aop.microcontainer.aspects.jmx.JMX(name="jboss.monitoring:service=MonitorService", exposedInterface=org.jboss.monitoring.MonitorMBean.class, registerDirectly=true)</annotation>
+		
+      <constructor factoryMethod="getMonitorService">     
+         <factory bean="MonitorServiceManagementObject"/>
+      </constructor>
+		
+	</bean>
+	
+	<bean name="MonitorServiceManagementObject" 
+         class="org.jboss.monitoring.managed.MonitorServiceManagementObject">
+         
+      <constructor>
+         
+         <parameter>${jboss.partition.name:DefaultPartition}</parameter>
+          
+         <parameter>
+            <set>
+               <inject bean="ServiceSet1"/>
+            </set>
+         </parameter>
+         
+      </constructor>
+   </bean>
+   
+   <bean name="ServiceSet1" class="org.jboss.monitoring.monitorServiceSet">
+    <constructor>
+         <parameter>jboss.system:type=Server</parameter>
+         <parameter>100</parameter>
+      </constructor>
+   </bean>
+   
+</deployment>

@@ -8,6 +8,14 @@
 	
 	<name>JBoss Elastic Cluster Monitor</name>
 	<description>A elastic service module for JBoss AS</description>
+	
+	<licenses>
+		<license>
+		   <name>Apache License, Version 2.0</name>
+		   <distribution>repo</distribution>
+		   <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
@@ -144,7 +152,6 @@
 		        <version>2.2</version>
 		        <!-- Enable packaging types and lifecycle bindings. -->
 		        <extensions>true</extensions>
-
 			</plugin>
 		</plugins>
 	</build>

@@ -29,6 +29,35 @@
 		variable -->
 		<jboss.home>${env.JBOSS_HOME}</jboss.home>
 	</properties>
+	
+   <developers>
+        <developer>
+            <name>Samuel Tauil</name>
+            <email>samuel@redhat.com</email>
+            <timezone>GMT-3</timezone>
+            <roles>
+                <role>Owner</role>
+            </roles>
+        </developer>
+        
+        <developer>
+            <name>Calebe J Varga</name>
+            <email>calebe.varga@gmail.com</email>
+            <timezone>GMT-3</timezone>
+            <roles>
+                <role>Commiter</role>
+            </roles>
+        </developer>
+        
+        <developer>
+            <name>William </name>
+            <email>william.fatecsjc@gmail.com</email>
+            <timezone>GMT-3</timezone>
+            <roles>
+                <role>Commiter</role>
+            </roles>
+        </developer>
+    </developers>
    
 	<repositories>
 		<repository>

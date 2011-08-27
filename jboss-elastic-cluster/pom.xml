@@ -1,18 +1,152 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.jboss.cluster</groupId>
-  <artifactId>jboss-elastic-cluster</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
-  	<dependency>
-  		<groupId>org.libvirt</groupId>
-  		<artifactId>libvirt</artifactId>
-  		<version>0.4.7</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.sun.jna</groupId>
-  		<artifactId>jna</artifactId>
-  		<version>3.0.9</version>
-  	</dependency>
-  </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.jboss.monitoring</groupId>
+	<artifactId>jboss-cluster-monitor</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jboss-sar</packaging>
+	
+	<name>JBoss Elastic Cluster Monitor</name>
+	<description>A elastic service module for JBoss AS</description>
+
+	<properties>
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+		resources, i.e. build is platform dependent! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Timestamp format for the maven.build.timestamp property -->
+		<!-- You can reference property in pom.xml or filtered resources (must 
+		enable third-party plugin if using Maven < 2.1) -->
+		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
+		<!-- Specify the JBoss AS directory to be the JBOSS_HOME environment 
+		variable -->
+		<jboss.home>${env.JBOSS_HOME}</jboss.home>
+	</properties>
+   
+	<repositories>
+		<repository>
+			<id>maven-nuxeo</id>
+			<name>Maven Nuxeo Repository</name>
+			<url>https://maven.nuxeo.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+    			<enabled>true</enabled>
+    			<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+    			<enabled>true</enabled>
+    			<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+  
+		<repository>
+			<id>mavenRepo</id>
+			<name>maven-default</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+     
+	     <!-- The JBoss Community public repository is a composite repository 
+	     of several major repositories -->
+  		<!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+		<repository>
+			<id>jboss-public-repository</id>
+			<name>JBoss Repository</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+			<!-- These optional flags are designed to speed up your builds by 
+			reducing remote server calls -->
+			<releases>
+			</releases>
+			<snapshots>
+			   <enabled>false</enabled>
+			</snapshots>
+		</repository> 
+	</repositories>
+	
+	<dependencies>
+	 
+		<dependency>
+		  <groupId>jboss</groupId>
+		  <artifactId>jbossjmx-ant</artifactId>
+		  <version>3.2.3</version>
+		  <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.jboss.ejb3</groupId>
+		  <artifactId>jboss-ejb3-ext-api</artifactId>
+		  <version>1.1.1</version>
+		  <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.jboss.man</groupId>
+		  <artifactId>jboss-managed</artifactId>
+		  <version>2.1.1.SP2</version>
+		  <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.jgroups</groupId>
+		  <artifactId>jgroups</artifactId>
+		  <version>2.12.1.3.Final</version>
+		  <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.jboss.microcontainer</groupId>
+		  <artifactId>jboss-aop-mc-int</artifactId>
+		  <version>2.0.10.GA</version>
+		  <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.jboss.jbossas</groupId>
+		  <artifactId>jboss-as-varia</artifactId>
+		  <version>5.1.0.GA</version>
+		  <scope>provided</scope>
+		</dependency>
+	
+		<dependency>
+				<groupId>org.libvirt</groupId>
+				<artifactId>libvirt</artifactId>
+				<version>0.4.7</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sun.jna</groupId>
+			<artifactId>jna</artifactId>
+			<version>3.0.9</version>
+		</dependency>
+		
+      <!-- Needed for running tests (you may also use TestNG) -->
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.8.1</version>
+         <scope>test</scope>
+      </dependency>
+	
+  	</dependencies>
+  	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>jboss-packaging-maven-plugin</artifactId>
+		        <version>2.2</version>
+		        <!-- Enable packaging types and lifecycle bindings. -->
+		        <extensions>true</extensions>
+
+			</plugin>
+		</plugins>
+	</build>
 </project>
+

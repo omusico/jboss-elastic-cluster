@@ -27,7 +27,9 @@
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
 		<!-- Specify the JBoss AS directory to be the JBOSS_HOME environment 
 		variable -->
-		<jboss.home>${env.JBOSS_HOME}</jboss.home>
+		<!-- <jboss.home>${env.JBOSS_HOME}</jboss.home>  -->
+		
+		<jboss.home>/opt/temp/</jboss.home>
 	</properties>
 	
    <developers>
@@ -143,9 +145,9 @@
 		</dependency>
 	
 		<dependency>
-				<groupId>org.libvirt</groupId>
-				<artifactId>libvirt</artifactId>
-				<version>0.4.7</version>
+			<groupId>org.libvirt</groupId>
+			<artifactId>libvirt</artifactId>
+			<version>0.4.7</version>
 		</dependency>
 		
 		<dependency>
@@ -154,24 +156,32 @@
 			<version>3.0.9</version>
 		</dependency>
 		
-      <!-- Needed for running tests (you may also use TestNG) -->
-      <dependency>
-         <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-         <version>4.8.1</version>
-         <scope>test</scope>
-      </dependency>
+		<dependency>
+		  <groupId>org.infinispan</groupId>
+		  <artifactId>infinispan-core</artifactId>
+		  <version>4.2.0.FINAL</version>
+		  <scope>provided</scope>
+		</dependency> 
+		
+		<!-- Needed for running tests (you may also use TestNG) -->
+		<dependency>
+		   <groupId>junit</groupId>
+		   <artifactId>junit</artifactId>
+		   <version>4.8.1</version>
+		   <scope>test</scope>
+		</dependency>
 	
   	</dependencies>
   	
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>${project.artifactId}.sar</finalName>
+		
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 			
@@ -179,9 +189,18 @@
 		        <groupId>org.codehaus.mojo</groupId>
 		        <artifactId>jboss-packaging-maven-plugin</artifactId>
 		        <version>2.2</version>
-		        <!-- Enable packaging types and lifecycle bindings. -->
 		        <extensions>true</extensions>
 			</plugin>
+			 
+               <!-- The JBoss AS plugin deploys your war to a local JBoss 
+                  AS container -->
+               <!-- To use, set the JBOSS_HOME environment variable and run: 
+                  mvn package jboss-as:deploy -->
+<!--             <plugin>
+               <groupId>org.jboss.as.plugins</groupId>
+               <artifactId>jboss-as-maven-plugin</artifactId>
+               <version>6.1.0.Final</version>
+            </plugin> -->
 		</plugins>
 	</build>
 </project>

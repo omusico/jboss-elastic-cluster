@@ -1,0 +1,1 @@
+Service to be deployed to JBoss instances to provide elasticity in an cloud environment.
